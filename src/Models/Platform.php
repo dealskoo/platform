@@ -11,4 +11,27 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Platform extends Model
 {
     use HasFactory, SoftDeletes, HasCountry, HasSlug;
+
+    protected $appends = ['logo_url'];
+
+    protected $fillable = [
+        'slug',
+        'name',
+        'website',
+        'logo',
+        'score',
+        'description',
+        'country_id',
+        'seller_id',
+        'approved'
+    ];
+
+    protected $casts = [
+        'approved' => 'boolean'
+    ];
+
+    public function getLogoUrlAttribute()
+    {
+        return empty($this->logo) ?: Storage::url($this->logo);
+    }
 }
