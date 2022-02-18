@@ -32,6 +32,6 @@ class Platform extends Model
 
     public function getLogoUrlAttribute()
     {
-        return empty($this->logo) ?: Storage::url($this->logo);
+        return empty($this->logo) ? asset(config('platform.default_logo')) : Storage::url($this->logo);
     }
 }
