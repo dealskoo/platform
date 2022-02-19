@@ -4,7 +4,7 @@ namespace Dealskoo\Platform\Tests;
 
 use Dealskoo\Platform\Providers\PlatformServiceProvider;
 
-abstract class TestCase extends \Dealskoo\Admin\Tests\TestCase
+abstract class TestCase extends \Dealskoo\Seller\Tests\TestCase
 {
     protected function getPackageProviders($app)
     {
@@ -16,5 +16,11 @@ abstract class TestCase extends \Dealskoo\Admin\Tests\TestCase
     protected function getPackageAliases($app)
     {
         return [];
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->loadMigrationsFrom(__DIR__ . '/migrations');
     }
 }
