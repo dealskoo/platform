@@ -2,6 +2,9 @@
 
 namespace Dealskoo\Platform\Providers;
 
+use Dealskoo\Admin\Facades\AdminMenu;
+use Dealskoo\Admin\Facades\PermissionManager;
+use Dealskoo\Admin\Permission;
 use Illuminate\Support\ServiceProvider;
 
 class PlatformServiceProvider extends ServiceProvider
@@ -41,5 +44,12 @@ class PlatformServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'platform');
 
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'platform');
+
+        AdminMenu::route('admin.platforms.index', 'platform::platform.platforms', [], ['icon' => 'uil-cell', 'permission' => 'platforms.index'])->order(8);
+
+        PermissionManager::add(new Permission('platforms.index', 'Platform Lists'));
+        PermissionManager::add(new Permission('platforms.show', 'View Platform'), 'platforms.index');
+        PermissionManager::add(new Permission('platforms.edit', 'Edit Platform'), 'platforms.index');
+        PermissionManager::add(new Permission('platforms.destroy', 'Destroy Platform'), 'platforms.index');
     }
 }
