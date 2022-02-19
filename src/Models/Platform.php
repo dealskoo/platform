@@ -4,13 +4,15 @@ namespace Dealskoo\Platform\Models;
 
 use Dealskoo\Admin\Traits\HasSlug;
 use Dealskoo\Country\Traits\HasCountry;
+use Dealskoo\Seller\Traits\HasSeller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Platform extends Model
 {
-    use HasFactory, SoftDeletes, HasCountry, HasSlug;
+    use HasFactory, SoftDeletes, HasCountry, HasSlug, HasSeller;
 
     protected $appends = ['logo_url'];
 

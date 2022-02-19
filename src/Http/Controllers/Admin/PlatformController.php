@@ -49,7 +49,7 @@ class PlatformController extends AdminController
             $row[] = $platform->website;
             $row[] = $platform->score;
             $row[] = $platform->country_name;
-            $row[] = '<a href="' . route('admin.sellers.show', $brand->seller) . '">' . $brand->seller->name . '</a>';
+            $row[] = '<a href="' . route('admin.sellers.show', $platform->seller) . '">' . $platform->seller->name . '</a>';
             $row[] = $platform->approved;
             $row[] = Carbon::parse($platform->created_at)->format('Y-m-d H:i:s');
             $row[] = Carbon::parse($platform->updated_at)->format('Y-m-d H:i:s');
@@ -88,7 +88,7 @@ class PlatformController extends AdminController
     {
         abort_if(!$request->user()->canDo('platforms.edit'), 403);
         $platform = Platform::query()->findOrFail($id);
-        return view('platform::admin.platform.show', ['platform' => $platform]);
+        return view('platform::admin.platform.edit', ['platform' => $platform]);
     }
 
     public function update(Request $request, $id)
@@ -98,7 +98,7 @@ class PlatformController extends AdminController
             'approved' => ['required', 'boolean'],
         ]);
         $platform = Platform::query()->findOrFail($id);
-        $brand->fill($request->only([
+        $platform->fill($request->only([
             'approved',
         ]));
         $platform->save();
