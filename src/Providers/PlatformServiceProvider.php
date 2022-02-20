@@ -5,6 +5,7 @@ namespace Dealskoo\Platform\Providers;
 use Dealskoo\Admin\Facades\AdminMenu;
 use Dealskoo\Admin\Facades\PermissionManager;
 use Dealskoo\Admin\Permission;
+use Dealskoo\Seller\Facades\SellerMenu;
 use Illuminate\Support\ServiceProvider;
 
 class PlatformServiceProvider extends ServiceProvider
@@ -51,5 +52,7 @@ class PlatformServiceProvider extends ServiceProvider
         PermissionManager::add(new Permission('platforms.show', 'View Platform'), 'platforms.index');
         PermissionManager::add(new Permission('platforms.edit', 'Edit Platform'), 'platforms.index');
         PermissionManager::add(new Permission('platforms.destroy', 'Destroy Platform'), 'platforms.index');
+
+        SellerMenu::route('admin.platforms.index', 'platform::platform.platforms', [], ['icon' => 'uil-cell me-1'])->order(4);
     }
 }
