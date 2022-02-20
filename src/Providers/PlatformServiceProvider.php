@@ -53,6 +53,6 @@ class PlatformServiceProvider extends ServiceProvider
         PermissionManager::add(new Permission('platforms.edit', 'Edit Platform'), 'platforms.index');
         PermissionManager::add(new Permission('platforms.destroy', 'Destroy Platform'), 'platforms.index');
 
-        SellerMenu::route('admin.platforms.index', 'platform::platform.platforms', [], ['icon' => 'uil-cell me-1'])->order(4);
+        SellerMenu::route('seller.platforms.index', 'platform::platform.platforms', [], ['icon' => 'uil-cell me-1'])->order(8);
     }
 }
