@@ -48,7 +48,7 @@ class PlatformController extends AdminController
             $row[] = $platform->slug;
             $row[] = $platform->website;
             $row[] = $platform->score;
-            $row[] = $platform->country_name;
+            $row[] = $platform->country->name;
             $row[] = '<a href="' . route('admin.sellers.show', $platform->seller) . '">' . $platform->seller->name . '</a>';
             $row[] = $platform->approved;
             $row[] = Carbon::parse($platform->created_at)->format('Y-m-d H:i:s');
