@@ -48,6 +48,9 @@ class PlatformControllerTest extends TestCase
         $platform = Platform::factory()->create();
         $platform1 = Platform::factory()->make();
         $response = $this->actingAs($admin, 'admin')->put(route('admin.platforms.update', $platform), $platform1->only([
+            'slug',
+            'website',
+            'score',
             'approved',
         ]));
         $response->assertStatus(302);

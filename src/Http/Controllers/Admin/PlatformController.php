@@ -4,6 +4,7 @@ namespace Dealskoo\Platform\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
+use Dealskoo\Admin\Rules\Slug;
 use Dealskoo\Platform\Models\Platform;
 use Illuminate\Http\Request;
 
@@ -94,7 +95,17 @@ class PlatformController extends AdminController
     public function update(Request $request, $id)
     {
         abort_if(!$request->user()->canDo('platforms.edit'), 403);
+        $request->validate([
+            'slug' => ['required', new Slug('platforms', 'slug', $id, 'id')],
+            'website' => ['required'],
+            'score' => ['required', 'digits_between:0,' . config('platform.max_score')],
+        ]);
         $platform = Platform::query()->findOrFail($id);
+        $platform->fill($request->only([
+            'slug',
+            'website',
+            'score'
+        ]));
         $platform->approved = $request->boolean('approved', false);
         $platform->save();
         return back()->with('success', __('admin::admin.update_success'));
