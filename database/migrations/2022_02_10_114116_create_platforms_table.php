@@ -18,8 +18,8 @@ class CreatePlatformsTable extends Migration
             $table->string('slug')->unique()->nullable();
             $table->string('name');
             $table->string('website');
-            $table->string('logo');
-            $table->decimal('score', 2,1)->default(4);
+            $table->string('logo')->nullable();
+            $table->decimal('score', 2, 1)->default(4);
             $table->string('description')->nullable();
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('seller_id');
