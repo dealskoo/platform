@@ -1,6 +1,6 @@
 <?php
 
-namespace Dealskoo\Platform\Tests\Feature;
+namespace Dealskoo\Platform\Tests\Feature\Seller;
 
 use Dealskoo\Platform\Models\Platform;
 use Dealskoo\Platform\Tests\TestCase;
