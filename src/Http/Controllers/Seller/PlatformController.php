@@ -136,6 +136,6 @@ class PlatformController extends SellerController
 
     public function destroy(Request $request, $id)
     {
-        return ['status' => Platform::where('seller_id', $request->user()->id)->where('approved', false)->delete($id)];
+        return ['status' => Platform::where('seller_id', $request->user()->id)->where('approved', false)->where('id', $id)->delete()];
     }
 }
