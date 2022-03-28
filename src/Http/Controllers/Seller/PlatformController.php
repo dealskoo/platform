@@ -75,21 +75,30 @@ class PlatformController extends SellerController
 
     public function store(Request $request)
     {
-        $request->validate([
-            'logo' => ['required', 'image'],
-            'name' => ['required'],
-            'website' => ['required'],
-        ]);
+        if ($request->hasFile('logo')) {
+            $request->validate([
+                'logo' => ['required', 'image'],
+                'name' => ['required'],
+                'website' => ['required'],
+            ]);
+        } else {
+            $request->validate([
+                'name' => ['required'],
+                'website' => ['required'],
+            ]);
+        }
         $platform = new Platform($request->only(['name', 'website', 'description']));
-        $image = $request->file('logo');
         $seller = $request->user();
         $platform->seller_id = $seller->id;
         $platform->country_id = $seller->country->id;
         $platform->save();
-        $filename = $platform->id . '.' . $image->guessExtension();
-        $path = $image->storeAs('platforms', $filename);
-        $platform->logo = $path;
-        $platform->save();
+        if ($request->hasFile('logo')) {
+            $image = $request->file('logo');
+            $filename = $platform->id . '.' . $image->guessExtension();
+            $path = $image->storeAs('platforms', $filename);
+            $platform->logo = $path;
+            $platform->save();
+        }
         return redirect(route('seller.platforms.index'));
     }
 
@@ -101,7 +110,7 @@ class PlatformController extends SellerController
 
     public function update(Request $request, $id)
     {
-        if ($request->has('logo')) {
+        if ($request->hasFile('logo')) {
             $request->validate([
                 'logo' => ['required', 'image'],
                 'name' => ['required'],
@@ -115,7 +124,7 @@ class PlatformController extends SellerController
         }
         $platform = Platform::where('seller_id', $request->user()->id)->findOrFail($id);
         $platform->fill($request->only(['name', 'website', 'description']));
-        if ($request->has('logo')) {
+        if ($request->hasFile('logo')) {
             $image = $request->file('logo');
             $filename = $platform->id . '.' . $image->guessExtension();
             $path = $image->storeAs('platforms', $filename);
