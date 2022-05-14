@@ -38,4 +38,12 @@ class PlatformTest extends TestCase
         $platform = Platform::factory()->create();
         $this->assertNotNull($platform->seller);
     }
+
+    public function test_approved()
+    {
+        $count = 2;
+        Platform::factory()->create();
+        Platform::factory()->count($count)->approved()->create();
+        $this->assertEquals($count, Platform::approved()->count());
+    }
 }

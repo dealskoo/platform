@@ -5,6 +5,7 @@ namespace Dealskoo\Platform\Models;
 use Dealskoo\Admin\Traits\HasSlug;
 use Dealskoo\Country\Traits\HasCountry;
 use Dealskoo\Seller\Traits\HasSeller;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,5 +36,10 @@ class Platform extends Model
     public function getLogoUrlAttribute()
     {
         return empty($this->logo) ? asset(config('platform.default_logo')) : Storage::url($this->logo);
+    }
+
+    public function scopeApproved(Builder $builder)
+    {
+        return $builder->where('approved', true);
     }
 }
