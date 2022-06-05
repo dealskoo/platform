@@ -98,7 +98,7 @@ class PlatformController extends AdminController
         $request->validate([
             'slug' => ['required', new Slug('platforms', 'slug', $id, 'id')],
             'website' => ['required'],
-            'score' => ['required', 'digits_between:0,' . config('platform.max_score')],
+            'score' => ['required', 'numeric', 'between:0,' . config('platform.max_score')],
         ]);
         $platform = Platform::query()->findOrFail($id);
         $platform->fill($request->only([
