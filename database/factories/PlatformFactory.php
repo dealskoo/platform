@@ -22,8 +22,6 @@ class PlatformFactory extends Factory
      */
     public function definition()
     {
-        $seller = Seller::factory()->create();
-
         return [
             'slug' => $this->faker->unique()->slug,
             'name' => $this->faker->name,
@@ -31,8 +29,10 @@ class PlatformFactory extends Factory
             'logo' => $this->faker->imageUrl,
             'score' => $this->faker->numberBetween(0, 5),
             'description' => $this->faker->text,
-            'country_id' => $seller->country_id,
-            'seller_id' => $seller->id
+            'seller_id' => Seller::factory(),
+            'country_id' => function ($platform) {
+                return Seller::find($platform['seller_id'])->country_id;
+            },
         ];
     }
 
