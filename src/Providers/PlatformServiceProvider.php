@@ -48,7 +48,7 @@ class PlatformServiceProvider extends ServiceProvider
 
         AdminMenu::route('admin.platforms.index', 'platform::platform.platforms', [], ['icon' => 'uil-cell', 'permission' => 'platforms.index'])->order(8);
 
-        PermissionManager::add(new Permission('platforms.index', 'Platform Lists'));
+        PermissionManager::add(new Permission('platforms.index', 'Platform List'));
         PermissionManager::add(new Permission('platforms.show', 'View Platform'), 'platforms.index');
         PermissionManager::add(new Permission('platforms.edit', 'Edit Platform'), 'platforms.index');
         PermissionManager::add(new Permission('platforms.destroy', 'Destroy Platform'), 'platforms.index');
