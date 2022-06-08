@@ -2,7 +2,6 @@
 
 namespace Dealskoo\Platform\Http\Controllers\Seller;
 
-use Carbon\Carbon;
 use Dealskoo\Platform\Models\Platform;
 use Dealskoo\Seller\Http\Controllers\Controller as SellerController;
 use Illuminate\Http\Request;
@@ -46,8 +45,8 @@ class PlatformController extends SellerController
             $row[] = $platform->score;
             $row[] = $platform->country->name;
             $row[] = $platform->approved;
-            $row[] = Carbon::parse($platform->created_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($platform->updated_at)->format('Y-m-d H:i:s');
+            $row[] = $platform->created_at->format('Y-m-d H:i:s');
+            $row[] = $platform->updated_at->format('Y-m-d H:i:s');
 
             $edit_link = '';
             if (!$platform->approved) {

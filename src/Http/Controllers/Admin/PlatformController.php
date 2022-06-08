@@ -2,7 +2,6 @@
 
 namespace Dealskoo\Platform\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use Dealskoo\Admin\Http\Controllers\Controller as AdminController;
 use Dealskoo\Admin\Rules\Slug;
 use Dealskoo\Platform\Models\Platform;
@@ -52,8 +51,8 @@ class PlatformController extends AdminController
             $row[] = $platform->country->name;
             $row[] = '<a href="' . route('admin.sellers.show', $platform->seller) . '">' . $platform->seller->name . '</a>';
             $row[] = $platform->approved;
-            $row[] = Carbon::parse($platform->created_at)->format('Y-m-d H:i:s');
-            $row[] = Carbon::parse($platform->updated_at)->format('Y-m-d H:i:s');
+            $row[] = $platform->created_at->format('Y-m-d H:i:s');
+            $row[] = $platform->updated_at->format('Y-m-d H:i:s');
             $view_link = '';
             if ($can_view) {
                 $view_link = '<a href="' . route('admin.platforms.show', $platform) . '" class="action-icon"><i class="mdi mdi-eye"></i></a>';
